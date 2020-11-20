@@ -171,8 +171,6 @@ class HOITrainer(BaseTrainer):
                 rel_topk=rel_topk)
             results.append(pred_out)
             count += 1
-            if count > 9:
-                break
 
         # save the result
         result_path = f'{self.cfg.OUTPUT_ROOT}/pred.json'
@@ -181,7 +179,7 @@ class HOITrainer(BaseTrainer):
         # eval
         if mode == 'hico':
             from eval_tools.hico_eval import hico
-            eval_tool = hico(annotation_file='data/hico/test_hico_min.json', 
+            eval_tool = hico(annotation_file='data/hico/test_hico.json', 
                              train_annotation='data/hico/trainval_hico.json')
             mAP = eval_tool.evalution(results)
         else:
