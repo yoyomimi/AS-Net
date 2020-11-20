@@ -17,9 +17,9 @@ Install the dependencies.
 data/hico
    |———  images
    |        └——————train
-   |                 └——————anno.json
-   |                 └——————XXX1.jpg
-   |                 └——————XXX2.jpg
+   |        |        └——————anno.json
+   |        |        └——————XXX1.jpg
+   |        |        └——————XXX2.jpg
    |        └——————test
    |                 └——————anno.json
    |                 └——————XXX1.jpg
