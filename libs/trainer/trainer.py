@@ -33,13 +33,9 @@ class BaseTrainer(object):
         self.is_best = False
         self.max_epoch = self.cfg.TRAIN.MAX_EPOCH
         self.model_name = self.cfg.MODEL.NAME
-        if rank == 0:
+        if self.optimizer is not None and rank == 0:
             self.writer = SummaryWriter(log_dir, comment=f'_rank{rank}')
             logging.info(f"max epochs = {self.max_epoch} ")
-
-        if self.PI == 'triplet_loss':
-            self.best_performance = 1e10
-        # TODO init model weights
 
     def _read_inputs(self, inputs):
         imgs, targets, index = inputs

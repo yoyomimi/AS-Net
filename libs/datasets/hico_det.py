@@ -34,8 +34,8 @@ class HICODetDataset(Dataset):
                 flag_bad = 1
                 continue
             for hoi in hico['hoi_annotation']:
-                if hoi['subject_id'] >= len(hico['annotations']) or \ 
-                     hoi['object_id'] >= len(hico['annotations']):
+                if hoi['subject_id'] >= len(hico['annotations']) or hoi[
+                     'object_id'] >= len(hico['annotations']):
                     flag_bad = 1
                     break
             if flag_bad == 0:

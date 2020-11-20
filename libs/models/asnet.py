@@ -2,6 +2,7 @@ import mmcv
 import numpy as np
 import os
 import sys
+import time
 
 import torch
 from torch import nn
@@ -588,14 +589,14 @@ class PostProcess(nn.Module):
             rel_prob.device) + 1
         rel_vec = rel_out_bbox * scale_fct[:, None, :]
         rel_vec_flat = rel_vec.flatten(0, 1)
-        hoi_scores = rel_scores * s_scores[rel_s_ids].unsqueeze(-1) * \
-            o_scores[rel_o_ids].unsqueeze(-1)
 
         # matching distance in post-processing
         dist_s, dist_o = self.get_matching_scores(s_cetr, o_cetr, s_scores,
             o_scores, rel_vec_flat, s_emb, o_emb, src_emb, dst_emb)
         rel_s_scores, rel_s_ids = torch.max(dist_s, dim=-1)
         rel_o_scores, rel_o_ids = torch.max(dist_o, dim=-1)
+        hoi_scores = rel_scores * s_scores[rel_s_ids].unsqueeze(-1) * \
+            o_scores[rel_o_ids].unsqueeze(-1)
 
         # exclude non-exist hoi categories of training
         rel_array = torch.from_numpy(np.load(self.rel_array_path)).to(hoi_scores.device)

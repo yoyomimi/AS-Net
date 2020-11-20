@@ -39,6 +39,10 @@ def main_per_worker():
     update_config(cfg, args)
     ngpus_per_node = torch.cuda.device_count()
     device = torch.device(cfg.DEVICE)
+
+    if not os.path.exists(cfg.OUTPUT_ROOT):
+        os.makedirs(cfg.OUTPUT_ROOT)
+    logging.basicConfig(filename=f'{cfg.OUTPUT_ROOT}/eval.log', level=logging.INFO)
     
     # model
     module = importlib.import_module(cfg.MODEL.FILE)
@@ -47,20 +51,20 @@ def main_per_worker():
     model_without_ddp = model.module
     n_parameters = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print('number of params:', n_parameters)
+    # load model checkpoints
+    resume_path = cfg.MODEL.RESUME_PATH
     if os.path.exists(resume_path):
         checkpoint = torch.load(resume_path, map_location='cpu')
         # resume
         if 'state_dict' in checkpoint:
             model.module.load_state_dict(checkpoint['state_dict'], strict=True)
-            logging.info(f'==> model pretrained from {resume_path} \n')
-    module = importlib.import_module(cfg.MODEL.FILE)
-    model, criterion, postprocessors = getattr(module, 'build_model')(cfg, device)
+            logging.info(f'==> model pretrained from {resume_path}')
 
     # get datset
     module = importlib.import_module(cfg.DATASET.FILE)
     Dataset = getattr(module, cfg.DATASET.NAME)
     data_root = cfg.DATASET.ROOT # abs path in yaml
-    if not os.path.exists(anno_root):
+    if not os.path.exists(data_root):
         logging.info(f'==> Cannot found data: {data_root}')
         raise FileNotFoundError
     eval_transform = EvalTransform(
@@ -73,8 +77,8 @@ def main_per_worker():
     if not os.path.exists(anno_root):
         logging.info(f'==> Cannot found annotation: {anno_root}')
         raise FileNotFoundError
-    eval_dataset = Dataset(data_root, anno_root, eval_transform)
-    if eval_set is not None:
+    eval_dataset = Dataset(cfg, data_root, anno_root, eval_transform)
+    if eval_dataset is not None:
         logging.info(f'==> the size of eval dataset is {len(eval_dataset)}')
     eval_loader = torch.utils.data.DataLoader(
         eval_dataset,
@@ -86,14 +90,15 @@ def main_per_worker():
     )
     
     # start evaluate in Trainer
-    Trainer = get_trainer(
+    module = importlib.import_module(cfg.TRAINER.FILE)
+    Trainer = getattr(module, cfg.TRAINER.NAME)(
         cfg,
         model,
         criterion=criterion,
         optimizer=None,
         lr_scheduler=None,
         postprocessors=postprocessors,
-        log_dir=OUTPUT_ROOT+'/output',
+        log_dir=cfg.OUTPUT_ROOT+'/output',
         performance_indicator=cfg.PI,
         last_iter=-1,
         rank=0,
@@ -102,7 +107,7 @@ def main_per_worker():
     )
     logging.info(f'==> start eval...')
     
-    assert cfg.TEST.MODE in ['hico', 'vcoco', 'hoia']
+    assert cfg.TEST.MODE in ['hico']
     Trainer.evaluate(eval_loader, cfg.TEST.MODE)
 
 

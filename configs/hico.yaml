@@ -68,6 +68,6 @@ TRAIN:
   CLIP_MAX_NORM: 0.1
   RESUME: True
 TEST:
-  REL_ARRAY_PATH: data/rel_np.npy
+  REL_ARRAY_PATH: data/hico/rel_np.npy
   USE_EMB: TRUE
   MODE: hico
