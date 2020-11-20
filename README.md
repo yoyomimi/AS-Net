@@ -7,7 +7,7 @@ Environment
 
 Install the dependencies.
 ```shell
- pip install -r requirements.txt`
+ pip install -r requirements.txt
 ```
 
 ## Data preparation
