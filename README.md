@@ -29,9 +29,10 @@ data/hico
    └——— rel_np.npy
 ```
 Noted:
- - We transformed the original annotation files to a *.json format, like data/hico/images/test/anno.json
- - test_hico.json, trainval_hico.json and rel_np.npy are used in the evaluation on HICO-DET. We provided these three files in our directory.
- - test_hico.json and data/hico/images/test/anno.json are the same.
+ - We transformed the original annotation files of HICO-DET to a *.json format, like data/hico/images/train_anno.json and ata/hico/images/test_hico.json.
+ - test_hico.json, trainval_hico.json and rel_np.npy are used in the evaluation on HICO-DET. We provided these three files in our data/hico directory.
+ - data/hico/train_anno.json and data/hico/images/train/anno.json are the same file.
+ - data/hico/test_hico.json and data/hico/images/test/anno.json are the same file.
  
 ## Checkpoints
 Our saved checkpoint on HICO-DET.
