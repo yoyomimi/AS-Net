@@ -112,32 +112,7 @@ class ASNet(nn.Module):
             'pred_det': out,
             'pred_rel': rel_out
         }
-        if self.aux_loss:
-            output['aux_outputs'] = self._set_aux_loss(outputs_class, outputs_coord,
-                outputs_rel_class, outputs_rel_coord, id_emb, src_emb, dst_emb)
-        
         return output
-
-    @torch.jit.unused
-    def _set_aux_loss(self, outputs_class, outputs_coord, outputs_rel_class,
-                      outputs_rel_coord, id_emb, src_emb, dst_emb):
-        # this is a workaround to make torchscript happy, as torchscript
-        # doesn't support dictionary with non-homogeneous values, such
-        # as a dict having both a Tensor and a list.
-        aux_output = []
-        for idx in range(len(outputs_class)):
-            out = {'pred_logits': outputs_class[idx], 'pred_boxes': outputs_coord[idx],
-                   'id_emb': id_emb[idx]}
-            if idx < len(outputs_rel_class):
-                rel_out = {'pred_logits': outputs_rel_class[idx], 'pred_boxes': outputs_rel_coord[idx],
-                           'src_emb': src_emb[idx], 'dst_emb': dst_emb[idx]}
-            else:
-                rel_out = None
-            aux_output.append({
-                'pred_det': out,
-                'pred_rel': rel_out 
-            })
-        return aux_output
 
 
 class MLP(nn.Module):
