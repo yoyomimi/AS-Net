@@ -1,5 +1,5 @@
 # AS-Net
-Code for one-stage adaptive set-based HOI detector AS-Net.
+Eval code for one-stage adaptive set-based HOI detector AS-Net.
 
 ## Installation
 Environment
@@ -16,10 +16,6 @@ Install the dependencies.
 ```
 data/hico
    |———  images
-   |        └——————train
-   |        |        └——————anno.json
-   |        |        └——————XXX1.jpg
-   |        |        └——————XXX2.jpg
    |        └——————test
    |                 └——————anno.json
    |                 └——————XXX1.jpg
@@ -29,10 +25,8 @@ data/hico
    └——— rel_np.npy
 ```
 Noted:
- - We transformed the original annotation files of HICO-DET to a *.json format, like data/hico/images/train_anno.json and ata/hico/images/test_hico.json.
+ - We transformed the original annotation files of HICO-DET to a *.json format, like data/hico/images/test_hico.json.
  - test_hico.json, trainval_hico.json and rel_np.npy are used in the evaluation on HICO-DET. We provided these three files in our data/hico directory.
- - data/hico/train_anno.json and data/hico/images/train/anno.json are the same file.
-   `cp data/hico/train_anno.json data/hico/images/train/anno.json`
  - data/hico/test_hico.json and data/hico/images/test/anno.json are the same file.
    `cp data/hico/test_hico.json data/hico/images/test/anno.json`
 
