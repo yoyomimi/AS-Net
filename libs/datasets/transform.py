@@ -290,25 +290,6 @@ class Compose(object):
         format_string += "\n)"
         return format_string
 
-
-class TrainTransform(object):
-    def __init__(self, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], 
-                 scales=[480, 512, 544, 576, 608, 640, 672, 704, 736, 768, 800], max_size=1333):
-        normalize = Compose([
-            ToTensor(),
-            Normalize(mean, std)
-        ])
-        self.augment = Compose([
-            RandomHorizontalFlip(),
-            RandomResize(scales, max_size=max_size),
-            normalize,
-        ])
-
-    def __call__(self, img, target):
-        # target["boxes"] xyxy; "masks"(optional)
-        return self.augment(img, target)
-
-
 class EvalTransform(object):
     def __init__(self, mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225], 
                  max_size=1333):
