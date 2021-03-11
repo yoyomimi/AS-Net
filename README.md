@@ -1,7 +1,7 @@
 # AS-Net
 Code for one-stage adaptive set-based HOI detector AS-Net.
 
-Mingfei Chen*, Yue Liao*, Si Liu, Zhiyuan Chen, Fei Wang, Chen Qian. "Reformulating HOI Detection as Adaptive Set Prediction." Accepted to CVPR 2021.
+Mingfei Chen*, Yue Liao*, Si Liu, Zhiyuan Chen, Fei Wang, Chen Qian. "Reformulating HOI Detection as Adaptive Set Prediction."  Accepted to CVPR 2021.
 https://arxiv.org/abs/2103.05983
 
 ## Installation
