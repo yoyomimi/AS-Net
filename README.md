@@ -1,5 +1,7 @@
 # AS-Net
 Code for one-stage adaptive set-based HOI detector AS-Net.
+https://arxiv.org/abs/2103.05983
+Accepted to CVPR 2021
 
 ## Installation
 Environment
