@@ -45,3 +45,4 @@ To evaluate our model on HICO-DET:
 python3 tools/eval.py --cfg configs/hico.yaml MODEL.RESUME_PATH [checkpoint_path]
 ```
 - The checkpoint is saved on HICO-DET with torch==1.4.0.
+- Checkpoint path:[ ASNet_hico_res50.pth ](https://drive.google.com/file/d/1EIE7KxqQO0DHU1GDRznnHnahlpOHDk6U/view?usp=sharing " ASNet_hico_res50.pth ").
