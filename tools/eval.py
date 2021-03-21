@@ -63,7 +63,7 @@ def main_per_worker():
     # get datset
     module = importlib.import_module(cfg.DATASET.FILE)
     Dataset = getattr(module, cfg.DATASET.NAME)
-    data_root = os.path.join(cfg.DATASET.ROOT, 'test') # abs path in yaml
+    data_root = os.path.join(cfg.DATASET.ROOT, 'test')
     if not os.path.exists(data_root):
         logging.info(f'==> Cannot found data: {data_root}')
         raise FileNotFoundError
