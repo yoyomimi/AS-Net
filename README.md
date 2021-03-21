@@ -46,3 +46,13 @@ python3 tools/eval.py --cfg configs/hico.yaml MODEL.RESUME_PATH [checkpoint_path
 ```
 - The checkpoint is saved on HICO-DET with torch==1.4.0.
 - Checkpoint path:[ ASNet_hico_res50.pth ](https://drive.google.com/file/d/1EIE7KxqQO0DHU1GDRznnHnahlpOHDk6U/view?usp=sharing " ASNet_hico_res50.pth ").
+
+## Train
+To train our model on HICO-DET:
+```shell
+CUDA_VISIBLE_DEVICES=0 python3 tools/train.py --cfg configs/hico.yaml MODEL.RESUME_PATH [pretrained_path]
+```
+
+- The pretrained model of DETR detecotor [ detr-r50-e632da11.pth ]( https://dl.fbaipublicfiles.com/detr/detr-r50-e632da11.pth " detr-r50-e632da11.pth ").
+- Other pretrained models of DETR detector can be downloaded from [ detr-github ]( https://github.com/facebookresearch/detr " detr-github ").
+- Download the pretrain model to the [pretrained path].
