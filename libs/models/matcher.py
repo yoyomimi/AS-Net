@@ -81,7 +81,7 @@ class HungarianMatcher(nn.Module):
         rel_out_prob = rel_outputs["pred_logits"].flatten(0, 1).sigmoid()  # [batch_size * num_queries, num_classes]
         rel_out_bbox = rel_outputs["pred_boxes"].flatten(0, 1)  # [batch_size * num_queries, 4]
         rel_tgt_ids = torch.cat([v["rel_labels"] for v in targets])
-        rel_tgt_bbox = torch.cat([v["rel_boxes"] for v in targets])
+        rel_tgt_bbox = torch.cat([v["rel_vecs"] for v in targets])
 
         # interaction category semantic distance
         rel_cost_list = []
@@ -101,7 +101,7 @@ class HungarianMatcher(nn.Module):
         rel_C = self.cost_bbox * rel_cost_bbox + self.cost_class * rel_cost_class
         rel_C = rel_C.view(bs, rel_num_queries, -1).cpu()
 
-        rel_sizes = [len(v["rel_boxes"]) for v in targets]
+        rel_sizes = [len(v["rel_vecs"]) for v in targets]
         rel_indices = [linear_sum_assignment(c[i]) for i, c in enumerate(rel_C.split(rel_sizes, -1))]
         rel_indices = [(torch.as_tensor(i, dtype=torch.int64), torch.as_tensor(j, dtype=torch.int64)) for i, j in rel_indices]
 
