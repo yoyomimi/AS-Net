@@ -123,9 +123,9 @@ class HICODetDataset(Dataset):
 
         target['rel_labels'] = torch.from_numpy(hoi_labels)
         if len(hoi_boxes) == 0:
-            target['rel_boxes'] = torch.from_numpy(np.array([]).reshape(-1, 4)).float()
+            target['rel_vecs'] = torch.from_numpy(np.array([]).reshape(-1, 4)).float()
         else:
-            target['rel_boxes'] = torch.cat(hoi_boxes).reshape(-1, 4).float()
+            target['rel_vecs'] = torch.cat(hoi_boxes).reshape(-1, 4).float()
         target['size'] = torch.from_numpy(np.array([h, w]))
 
         return img, target, file_name
