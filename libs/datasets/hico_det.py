@@ -13,7 +13,6 @@ class HICODetDataset(Dataset):
     def __init__(self,
                  cfg,
                  data_root,
-                 anno_root,
                  transform=None,
                  istrain=False,
                  ):
@@ -24,7 +23,8 @@ class HICODetDataset(Dataset):
         """
         self.num_classes_verb = cfg.DATASET.REL_NUM_CLASSES
         self.data_root = data_root
-        self.labels_path = anno_root
+        self.labels_path = osp.join(osp.abspath(
+            osp.dirname(self.data_root)), 'anno.json')
         self.transform = transform
         self.hoi_annotations = json.load(open(self.labels_path, 'r'))
         self.ids = []
@@ -73,7 +73,6 @@ class HICODetDataset(Dataset):
         num_rels = len(hoi_anns)
         boxes = []
         labels = []
-
         no_object = False
         if num_object == 0:
             # no gt boxes
