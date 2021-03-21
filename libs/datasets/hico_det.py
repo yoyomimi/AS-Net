@@ -8,6 +8,7 @@ import random
 import torch
 from torch.utils.data import Dataset
 
+
 class HICODetDataset(Dataset):
 
     def __init__(self,
@@ -24,7 +25,7 @@ class HICODetDataset(Dataset):
         self.num_classes_verb = cfg.DATASET.REL_NUM_CLASSES
         self.data_root = data_root
         self.labels_path = osp.join(osp.abspath(
-            osp.dirname(self.data_root)), 'anno.json')
+            self.data_root), 'anno.json')
         self.transform = transform
         self.hoi_annotations = json.load(open(self.labels_path, 'r'))
         self.ids = []
