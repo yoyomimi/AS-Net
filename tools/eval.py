@@ -63,7 +63,7 @@ def main_per_worker():
     # get datset
     module = importlib.import_module(cfg.DATASET.FILE)
     Dataset = getattr(module, cfg.DATASET.NAME)
-    data_root = cfg.DATASET.ROOT # abs path in yaml
+    data_root = os.path.join(cfg.DATASET.ROOT, 'test') # abs path in yaml
     if not os.path.exists(data_root):
         logging.info(f'==> Cannot found data: {data_root}')
         raise FileNotFoundError
@@ -73,11 +73,7 @@ def main_per_worker():
         max_size=cfg.DATASET.MAX_SIZE
     )
     logging.info(f'==> load val sub set: {data_root}')
-    anno_root = os.path.join(data_root, 'anno.json')
-    if not os.path.exists(anno_root):
-        logging.info(f'==> Cannot found annotation: {anno_root}')
-        raise FileNotFoundError
-    eval_dataset = Dataset(cfg, data_root, anno_root, eval_transform)
+    eval_dataset = Dataset(cfg, data_root, eval_transform)
     if eval_dataset is not None:
         logging.info(f'==> the size of eval dataset is {len(eval_dataset)}')
     eval_loader = torch.utils.data.DataLoader(
