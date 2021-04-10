@@ -11,7 +11,7 @@ CUDNN:
 DATASET:
   FILE: hico_det
   NAME: HICODetDataset
-  ROOT: 'data/hico/images/test'
+  ROOT: 'data/hico/images/'
   MEAN: [0.485, 0.456, 0.406]
   STD: [0.229, 0.224, 0.225]
   IMG_NUM_PER_GPU: 2
