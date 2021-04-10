@@ -129,5 +129,6 @@ dmypy.json
 .pyre/
 
 checkpoints/
+output/
 data/hico/images
 ASNet_*
