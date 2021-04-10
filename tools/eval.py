@@ -103,7 +103,7 @@ def main_per_worker():
     )
     logging.info(f'==> start eval...')
     
-    assert cfg.TEST.MODE in ['hico']
+    assert cfg.TEST.MODE in ['hico', 'hoia']
     Trainer.evaluate(eval_loader, cfg.TEST.MODE)
 
 

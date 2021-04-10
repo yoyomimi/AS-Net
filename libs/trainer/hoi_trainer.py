@@ -171,7 +171,6 @@ class HOITrainer(BaseTrainer):
                 rel_topk=rel_topk)
             results.append(pred_out)
             count += 1
-
         # save the result
         result_path = f'{self.cfg.OUTPUT_ROOT}/pred.json'
         write_dict_to_json(results, result_path)
@@ -184,7 +183,7 @@ class HOITrainer(BaseTrainer):
             mAP = eval_tool.evalution(results)
         elif mode == 'hoia':
             from eval_tools.hoia_eval import hoia
-            eval_tool = hico(annotation_file='data/hoia/test_hoia.json')
+            eval_tool = hoia(annotation_file='data/hoia/test_hoia.json')
             mAP = eval_tool.evalution(results)
         else:
             mAP = 0.0
