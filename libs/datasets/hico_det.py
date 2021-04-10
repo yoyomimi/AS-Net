@@ -3,6 +3,8 @@ import numpy as np
 import os
 import os.path as osp
 from PIL import Image
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 import random
 
 import torch
