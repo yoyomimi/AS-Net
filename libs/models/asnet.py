@@ -610,6 +610,13 @@ class PostProcess(nn.Module):
         hoi_triplet = hoi_triplet[hoi_triplet[..., -1]>0.0]
 
         # remove repeated triplets
+	if len(hoi_triplet) == 0:
+            pred_out = {
+                'file_name': file_name,
+                'hoi_prediction': [],
+                'predictions': []
+            }
+            return pred_out
         hoi_triplet = hoi_triplet[np.argsort(-hoi_triplet[:,-1])]
         _, hoi_id = np.unique(hoi_triplet[:, [0, 1, 2]], axis=0, return_index=True)
         rel_triplet = hoi_triplet[hoi_id]
