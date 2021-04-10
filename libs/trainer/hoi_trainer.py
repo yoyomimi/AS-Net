@@ -182,6 +182,10 @@ class HOITrainer(BaseTrainer):
             eval_tool = hico(annotation_file='data/hico/test_hico.json', 
                              train_annotation='data/hico/trainval_hico.json')
             mAP = eval_tool.evalution(results)
+        elif mode == 'hoia':
+            from eval_tools.hoia_eval import hoia
+            eval_tool = hico(annotation_file='data/hoia/test_hoia.json')
+            mAP = eval_tool.evalution(results)
         else:
             mAP = 0.0
 
