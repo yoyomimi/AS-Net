@@ -3,6 +3,8 @@ import numpy as np
 import os
 import os.path as osp
 from PIL import Image
+from PIL import ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 import random
 
 import torch
@@ -128,5 +130,4 @@ class HICODetDataset(Dataset):
         else:
             target['rel_vecs'] = torch.cat(hoi_boxes).reshape(-1, 4).float()
         target['size'] = torch.from_numpy(np.array([h, w]))
-
         return img, target, file_name
