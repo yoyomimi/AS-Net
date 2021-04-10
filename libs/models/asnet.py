@@ -606,7 +606,7 @@ class PostProcess(nn.Module):
         rel_s_ids = rel_s_ids.unsqueeze(-1).repeat(1, topk).reshape(-1, 1)
         rel_o_ids = rel_o_ids.unsqueeze(-1).repeat(1, topk).reshape(-1, 1)
         hoi_triplet = (torch.cat((rel_s_ids.float(), rel_o_ids.float(), hoi_labels.float(),
-            hoi_scores), 1)).cpu().numpy()
+            hoi_scores.float()), 1)).cpu().numpy()
         hoi_triplet = hoi_triplet[hoi_triplet[..., -1]>0.0]
 
         # remove repeated triplets
