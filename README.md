@@ -64,3 +64,12 @@ CUDA_VISIBLE_DEVICES=0 python3 tools/train.py --cfg configs/hico.yaml MODEL.RESU
 - The data preparation and training is following our data preparation and training process for HICO-DET. You need to modify the config file to hoia.yaml.
 - Checkpoint path:[ ASNet_hoia_res50.pth ](https://drive.google.com/file/d/1u6bCUZk063T2z5CKGwQfqWqeGKpta6kw/view?usp=sharing " ASNet_hoia_res50.pth ").
 
+## Citation
+```
+@inproceedings{chen_2021_asnet,
+  author = {Chen, Mingfei and Liao, Yue and Liu, Si and Chen, Zhiyuan and Wang, Fei and Qian, Chen},
+  title = {Reformulating HOI Detection as Adaptive Set Prediction},
+  booktitle={CVPR},
+  year = {2021},
+}
+```
